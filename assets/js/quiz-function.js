@@ -24,31 +24,50 @@ const questions = [
 let score = 0;
 let currentInteger = 0;
 let chosenOptions= [];
-let timeLeft = 10;
+let timeLeft = 15;
 let nextBtn = document.getElementById("next");
+let startBtn = document.getElementById("start");
 let timerEl = document.querySelector(".time");
-let qcontainer = document.getElementsByClassName("quest-container");
+let qcontainer = document.getElementById("quest-container");
+let scoreB = document.getElementById("scoreboard");
+
+
+function hideqcontainer(){
+  qcontainer.setAttribute("style", "display:none;");
+}
+
+
+function showqcontainer() {
+  qcontainer.setAttribute("style", "display:block;");
+}
+
+function showScoreboard(){
+  scoreB.setAttribute("style", "display:block;");
+}
+
+function hideTimer(){
+  timerEl.setAttribute("style", "display:none;");
+}
+
+function hideStart(){
+  startBtn.setAttribute("style", "display:none;");
+}
+
+
 
 function setTimer(){
-  createQuestion();
   let timerInterval = setInterval(function(){
     timerEl.textContent = `Time Left for this Question: ${timeLeft}`;
     timeLeft--;
     if (timeLeft < 0){
-      timerEl.textContent = "";
       clearInterval(timerInterval);
-      nextBtn.click();
-      createQuestion();
-      timeLeft=10;
-      setInterval(timerInterval, 10000)
-      timeLeft--;
-      timerEl.textContent = `Time Left for this Question: ${timeLeft}`;
+      timerEl.textContent = "";
+      hideqcontainer();
+      showScoreboard();
+      hideTimer()
     }
   }, 1000)
 }
-
-setTimer()
-
 
 function createQuestion(){
     for (let i=0; i<questions[currentInteger].options.length;i++){
@@ -68,9 +87,19 @@ function createOptions(i){
 if (input.dataset.status = "visible") {
   input.setAttribute("style", "display: inline");
 } 
-  input.nextSibling.textContent = option
+  input.nextSibling.textContent = option;
 }
 
+hideqcontainer();
+
+function startHandler(event){
+  event.preventDefault();
+  showqcontainer();
+  createQuestion();
+  setTimer();
+  hideStart();
+}
+startBtn.addEventListener("click", startHandler);
 
 function clickHandler(event){
   event.preventDefault()
@@ -82,15 +111,12 @@ function clickHandler(event){
         score++
       } else{
         score--
+        timeLeft--
       }
-      } // else {
-    //    qcontainer.dataset.status = "visible"
-    // if (qcontainer.dataset.status == "visible"){}
-    //     qcontainer.setAttribute("style", "display: inline");
-    //  }
-  }
+      }
   currentInteger++
   createQuestion()
+}
 }
 nextBtn.addEventListener("click", clickHandler)
 

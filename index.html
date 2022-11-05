@@ -9,10 +9,11 @@
 </head>
 <body>
     <main>
-    <section class="quest-container" data-status="visible">
-    <h1 id="score"></h1> 
-        <h1 class="time"></h1>
-    <div>
+        <button id="start">start quiz</button>
+    <section>
+    <h1 class="time"></h1>
+    <div id="quest-container">
+        <h1 id="score"></h1> 
         <h2 id="quest"></h2>
         <form name="radios">
             <input class="opt" type="radio" name="option" value="0" data-status="hidden"><label id="label0"></label>
@@ -23,8 +24,10 @@
         <button id="next" value="next">next</button>
     </div>
     </section>
-    <section id="scoreboard" data-status="hidden">
-        <h2>Your Total Scores</h2>
+    <section id="scoreboard">
+        <h2>Your Total Score:</h2>
+        <h3>Add your initials then click save to add your score to the board</h3>
+        <input type="text" id="save"><button>Save</button>
     </section>
     </main>
     <script src="./assets/js/quiz-function.js"></script>
