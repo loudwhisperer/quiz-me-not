@@ -1,3 +1,11 @@
 .opt{
     display:none;
 }
+
+.time{
+    text-align:left;
+}
+
+#scoreboard{
+    display:none;
+}

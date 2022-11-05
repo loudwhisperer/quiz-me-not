@@ -24,8 +24,31 @@ const questions = [
 let score = 0;
 let currentInteger = 0;
 let chosenOptions= [];
-let nextBtn = document.getElementById("next")
-//let qcont = getElementsByClassName("quest-container");
+let timeLeft = 10;
+let nextBtn = document.getElementById("next");
+let timerEl = document.querySelector(".time");
+let qcontainer = document.getElementsByClassName("quest-container");
+
+function setTimer(){
+  createQuestion();
+  let timerInterval = setInterval(function(){
+    timerEl.textContent = `Time Left for this Question: ${timeLeft}`;
+    timeLeft--;
+    if (timeLeft < 0){
+      timerEl.textContent = "";
+      clearInterval(timerInterval);
+      nextBtn.click();
+      createQuestion();
+      timeLeft=10;
+      setInterval(timerInterval, 10000)
+      timeLeft--;
+      timerEl.textContent = `Time Left for this Question: ${timeLeft}`;
+    }
+  }, 1000)
+}
+
+setTimer()
+
 
 function createQuestion(){
     for (let i=0; i<questions[currentInteger].options.length;i++){
@@ -47,24 +70,24 @@ if (input.dataset.status = "visible") {
 } 
   input.nextSibling.textContent = option
 }
-createQuestion()
+
+
 function clickHandler(event){
   event.preventDefault()
   const correctAns = questions[currentInteger].correctAnswer;
   const inputEl = document.getElementsByTagName("input");
   for (let i=0; i<inputEl.length;i++){
-    console.log(correctAns)
     if (inputEl[i].checked){
       if (inputEl[i].value == correctAns){
         score++
       } else{
         score--
       }
-     }// else {
-    //   qcont.dataset.status = "hidden"
-    //   if (qcont.dataset.status == "hidden"){}
-    //     qcont.setAttribute("style", "display: hidden");
-    // }
+      } // else {
+    //    qcontainer.dataset.status = "visible"
+    // if (qcontainer.dataset.status == "visible"){}
+    //     qcontainer.setAttribute("style", "display: inline");
+    //  }
   }
   currentInteger++
   createQuestion()
