@@ -3,7 +3,7 @@ const questions = [
   {
     question: "Q1: Do we have a leadership?",
     options: ["yes", "no"],
-    corectAnswer: 0,
+    correctAnswer: 1,
   },
   {
     question: "Q2: What designation does a field agent have?",
@@ -24,13 +24,50 @@ const questions = [
 let score = 0;
 let currentInteger = 0;
 let chosenOptions= [];
+let nextBtn = document.getElementById("next")
+//let qcont = getElementsByClassName("quest-container");
 
-const createQuestion = () =>{
-    for (let i=0; i<questions[this.currentNumber].options.length;i++){
+function createQuestion(){
+    for (let i=0; i<questions[currentInteger].options.length;i++){
         document.forms.radios.elements.option[i].checked=false;
+        createOptions(i);
     }
-    let question=document.getElementById("question");
-    question.innerHTML
+    let quest=document.getElementById("quest");
+    quest.textContent=questions[currentInteger].question;
+    let scoreEl = document.getElementById("score");
+    scoreEl.textContent="score: "+score
 }
-
+function createOptions(i){
+  const option = questions[currentInteger].options[i];
+  const input = document.querySelector(`[value = "${i}"]`);
+  input.dataset.status= "visible";
+  
+if (input.dataset.status = "visible") {
+  input.setAttribute("style", "display: inline");
+} 
+  input.nextSibling.textContent = option
+}
+createQuestion()
+function clickHandler(event){
+  event.preventDefault()
+  const correctAns = questions[currentInteger].correctAnswer;
+  const inputEl = document.getElementsByTagName("input");
+  for (let i=0; i<inputEl.length;i++){
+    console.log(correctAns)
+    if (inputEl[i].checked){
+      if (inputEl[i].value == correctAns){
+        score++
+      } else{
+        score--
+      }
+     }// else {
+    //   qcont.dataset.status = "hidden"
+    //   if (qcont.dataset.status == "hidden"){}
+    //     qcont.setAttribute("style", "display: hidden");
+    // }
+  }
+  currentInteger++
+  createQuestion()
+}
+nextBtn.addEventListener("click", clickHandler)
 

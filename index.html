@@ -8,17 +8,25 @@
     <title>The Night Light Project - Submission Survey</title>
 </head>
 <body>
+    <main>
+    <section class="quest-container" data-status="visible">
     <div id="score"></div>
 
-    <div id="quest">
+    <div>
+        <h1 id="quest"></h1>
         <form name="radios">
-            <input type="radio" name="option" value="0" data-status="hidden"><label id="label0"></label></input>
-            <input type="radio" name="option" value="1" data-status="hidden"><label id="label1"></label></input>
-            <input type="radio" name="option" value="2" data-status="hidden"><label id="label2"></label></input>
-            <input type="radio" name="option" value="3" data-status="hidden"><label id="label3"></label></input>
+            <input class="opt" type="radio" name="option" value="0" data-status="hidden"><label id="label0"></label>
+            <input class="opt"  type="radio" name="option" value="1" data-status="hidden"><label id="label1"></label>
+            <input class="opt"  type="radio" name="option" value="2" data-status="hidden"><label id="label2"></label>
+            <input class="opt"  type="radio" name="option" value="3" data-status="hidden"><label id="label3"></label>
         </form>
-        <button id="next" value="next"></button>
+        <button id="next" value="next">next</button>
     </div>
+    </section>
+    <section id="scoreboard" data-status="hidden">
+        <h2>Your Total Scores</h2>
+    </section>
+    </main>
 </body>
 <script src="./assets/js/quiz-function.js"></script>
 </html>
