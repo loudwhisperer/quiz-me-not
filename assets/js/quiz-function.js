@@ -1,4 +1,4 @@
-// TODO: add function to create pages dynamically
+// Start Object of questions to be asked 
 const questions = [
   {
     question: "Q1: Do we have a leadership?",
@@ -21,43 +21,53 @@ const questions = [
     correctAnswer: 2,
   },
 ];
-let score = 0;
+//start variables calling various elements in the HTML, score: setting the score the player has, currentInteger: the question they are on and timeLeft: the amount of time on the timer  
+let score = 1;
 let currentInteger = 0;
-let chosenOptions= [];
 let timeLeft = 15;
-let nextBtn = document.getElementById("next");
-let startBtn = document.getElementById("start");
-let timerEl = document.querySelector(".time");
-let qcontainer = document.getElementById("quest-container");
-let scoreB = document.getElementById("scoreboard");
-
-
+const nextBtn = document.getElementById("next");
+const startBtn = document.getElementById("start");
+const saveBtn = document.getElementById("save");
+const timerEl = document.querySelector(".time");
+const qcontainer = document.getElementById("quest-container");
+const scoreB = document.getElementById("scoreboard");
+const scoreEl = document.getElementById("score");
+const finalSc = document.getElementById("final");
+//hides the qcontainer
 function hideqcontainer(){
   qcontainer.setAttribute("style", "display:none;");
 }
-
-
+//shows the qcontainer
 function showqcontainer() {
-  qcontainer.setAttribute("style", "display:block;");
+  qcontainer.setAttribute("style", "display:inline;");
 }
-
+//shows the scoreB
 function showScoreboard(){
   scoreB.setAttribute("style", "display:block;");
 }
-
+// hides the timer
 function hideTimer(){
   timerEl.setAttribute("style", "display:none;");
 }
-
+//hides the start button
 function hideStart(){
   startBtn.setAttribute("style", "display:none;");
 }
-
-
-
+//saves the final score and intials of the user to the scoreboard
+function scoreKeeper(){
+  let finalScore = localStorage.getItem("finalScore");
+   if (!finalScore) {
+     return;
+   }
+   const newScore = document.createElement("p");
+   const newScoreCont = document.createTextNode(`${finalScore}`);
+   finalSc.appendChild(newScore);
+   newScore.appendChild(newScoreCont);
+}
+//starts and sets the timer 
 function setTimer(){
   let timerInterval = setInterval(function(){
-    timerEl.textContent = `Time Left for this Question: ${timeLeft}`;
+    timerEl.textContent = `Time Left for this Quiz: ${timeLeft}`;
     timeLeft--;
     if (timeLeft < 0){
       clearInterval(timerInterval);
@@ -68,15 +78,14 @@ function setTimer(){
     }
   }, 1000)
 }
-
+//Begin question adn option creation dynamically from the object above
 function createQuestion(){
-    for (let i=0; i<questions[currentInteger].options.length;i++){
+    for (let i=0; i < questions[currentInteger].options.length;i++){
         document.forms.radios.elements.option[i].checked=false;
         createOptions(i);
     }
     let quest=document.getElementById("quest");
     quest.textContent=questions[currentInteger].question;
-    let scoreEl = document.getElementById("score");
     scoreEl.textContent="score: "+score
 }
 function createOptions(i){
@@ -91,7 +100,7 @@ if (input.dataset.status = "visible") {
 }
 
 hideqcontainer();
-
+//begin start button functionality
 function startHandler(event){
   event.preventDefault();
   showqcontainer();
@@ -100,7 +109,7 @@ function startHandler(event){
   hideStart();
 }
 startBtn.addEventListener("click", startHandler);
-
+//begin next button functionality
 function clickHandler(event){
   event.preventDefault()
   const correctAns = questions[currentInteger].correctAnswer;
@@ -114,9 +123,27 @@ function clickHandler(event){
         timeLeft--
       }
       }
-  currentInteger++
-  createQuestion()
 }
+if (currentInteger === 3){
+  hideqcontainer();
+  showScoreboard();
+  hideTimer();
+  finalSc.textContent = `your final ${scoreEl.textContent}`
+  scoreKeeper();
+}
+  currentInteger++;
+  createQuestion();
 }
 nextBtn.addEventListener("click", clickHandler)
+//begin save button functionality
+function saveHandler(event){
+event.preventDefault();
+const newScore = document.createElement("p");
+const newScoreCont = document.createTextNode(`${document.getElementById("saveCont").value} ${scoreEl.textContent}`);
+finalSc.appendChild(newScore);
+newScore.appendChild(newScoreCont)
+let finalScore = newScore.textContent;
+localStorage.setItem("finalScore", finalScore);
+}
 
+saveBtn.addEventListener("click", saveHandler);
