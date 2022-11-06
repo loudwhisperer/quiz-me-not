@@ -24,7 +24,7 @@ const questions = [
 //start variables calling various elements in the HTML, score: setting the score the player has, currentInteger: the question they are on and timeLeft: the amount of time on the timer  
 let score = 1;
 let currentInteger = 0;
-let timeLeft = 15;
+let timeLeft = 10;
 const nextBtn = document.getElementById("next");
 const startBtn = document.getElementById("start");
 const saveBtn = document.getElementById("save");
