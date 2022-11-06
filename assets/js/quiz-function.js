@@ -74,7 +74,9 @@ function setTimer(){
       timerEl.textContent = "";
       hideqcontainer();
       showScoreboard();
+      finalSc.textContent = `your final ${scoreEl.textContent}`;
       hideTimer()
+      scoreKeeper();
     }
   }, 1000)
 }
