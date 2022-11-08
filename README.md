@@ -15,7 +15,7 @@ The live link is as follows if you would like to give it a look : https://loudwh
 - Once done you will have the full repo then it just a matter of changing directories to Quiz Me Not and using your preffered method for opening it in a code editor
 
 ## Usage
-When a user opens the page they will be greeted with a start button which if pressed shows the first question, starts the timer and sets the score to 1. If the user lets the timer run out because they cannot answer the question provided they are taken straight to the scoreboard where it will show a score of 1 and their previous score if one exists as pictured below:
+When a user opens the page they will be greeted with a start button which if pressed shows the first question, starts the timer and sets the score to 1. If the user lets the timer run out because they cannot answer the question provided they are taken straight to the scoreboard where it will show a score of 1 and their previous scores if they exist as pictured below:
 
 ![screenshot](/assets/images/timerout.png)
 
