@@ -25,6 +25,7 @@ const questions = [
 let score = 1;
 let currentInteger = 0;
 let timeLeft = 10;
+let scoreArr = [];
 const nextBtn = document.getElementById("next");
 const startBtn = document.getElementById("start");
 const saveBtn = document.getElementById("save");
@@ -33,6 +34,7 @@ const qcontainer = document.getElementById("quest-container");
 const scoreB = document.getElementById("scoreboard");
 const scoreEl = document.getElementById("score");
 const finalSc = document.getElementById("final");
+
 //hides the qcontainer
 function hideqcontainer(){
   qcontainer.setAttribute("style", "display:none;");
@@ -59,10 +61,13 @@ function scoreKeeper(){
    if (!finalScore) {
      return;
    }
+   scoreArr = JSON.parse(finalScore)
+   for (let i = 0; i < scoreArr.length; i++){
    const newScore = document.createElement("p");
-   const newScoreCont = document.createTextNode(`${finalScore}`);
+   const newScoreCont = document.createTextNode(`${scoreArr[i]}`);
    finalSc.appendChild(newScore);
    newScore.appendChild(newScoreCont);
+   }
 }
 //starts and sets the timer 
 function setTimer(){
@@ -145,7 +150,8 @@ const newScoreCont = document.createTextNode(`${document.getElementById("saveCon
 finalSc.appendChild(newScore);
 newScore.appendChild(newScoreCont)
 let finalScore = newScore.textContent;
-localStorage.setItem("finalScore", finalScore);
+scoreArr.push(finalScore)
+localStorage.setItem("finalScore", JSON.stringify(scoreArr));
 }
 
 saveBtn.addEventListener("click", saveHandler);
